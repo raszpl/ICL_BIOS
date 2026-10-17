@@ -54,7 +54,7 @@ seg000:C028 BDA_init_from_FF000 endp
 seg000:C028
 seg000:C028 ; ---------------------------------------------------------------------------
 seg000:C029         db    0
-seg000:C02A stack_C000_ptr dd 40BC00h               ; DATA XREF: Ram_64kb_poor_test:copying_to_C000_ram↓r
+seg000:C02A stack_C000_ptr dd 40BC00h               ; DATA XREF: sub_FC399:loc_FC465↓r
 seg000:C02E CMOS_defaults db      0                       ; 0 ; DATA XREF: execute_from_Ram+1E↓o
 seg000:C02F         db      0                       ; 1
 seg000:C030         db      0                       ; 2
@@ -155,22 +155,22 @@ seg000:C08E         db    33h                       ; 0Ch
 seg000:C08F         db    42h                       ; 0Dh
 seg000:C090         db      5                       ; 0Eh
 seg000:C091         db    42h                       ; 0Fh
-seg000:C092 jpt_FC10D dw offset Halt_execution      ; DATA XREF: sub_FC0DD+30↓r
-seg000:C094         dw offset loc_FC3B8             ; jump table for switch statement
-seg000:C096         dw offset Halt_execution
-seg000:C098         dw offset loc_FC450
-seg000:C09A         dw offset loc_FC450
-seg000:C09C         dw offset loc_FC450
-seg000:C09E         dw offset loc_FC450
-seg000:C0A0         dw offset loc_FC450
-seg000:C0A2         dw offset Halt_execution
-seg000:C0A4         dw offset Halt_execution
-seg000:C0A6         dw offset loc_FC450
+seg000:C092 jpt_FC10D dw offset Halt_execution        ; 0 ; DATA XREF: sub_FC0DD+30↓r
+seg000:C094         dw offset loc_FC3B8             ; 1 ; jump table for switch statement
+seg000:C096         dw offset Halt_execution        ; 2
+seg000:C098         dw offset loc_FC450             ; 3
+seg000:C09A         dw offset loc_FC450             ; 4
+seg000:C09C         dw offset loc_FC450             ; 5
+seg000:C09E         dw offset loc_FC450             ; 6
+seg000:C0A0         dw offset loc_FC450             ; 7
+seg000:C0A2         dw offset Halt_execution        ; 8
+seg000:C0A4         dw offset Halt_execution        ; 9
+seg000:C0A6         dw offset loc_FC450             ; 10
 seg000:C0A8
 seg000:C0A8 ; =============== S U B R O U T I N E =======================================
 seg000:C0A8
 seg000:C0A8
-seg000:C0A8 ram_test_error proc near                ; CODE XREF: sub_FC399+1C↓j Ram_64kb_poor_test:error↓j ...
+seg000:C0A8 ram_test_error proc near                ; CODE XREF: sub_FC399+1C↓j sub_FC399:loc_FC44D↓j ...
 seg000:C0A8         mov     bp, ax
 seg000:C0AA         xor     dx, dx
 seg000:C0AC         mov     dl, 43h
@@ -784,7 +784,7 @@ seg000:C399
 seg000:C399 ; =============== S U B R O U T I N E =======================================
 seg000:C399
 seg000:C399
-seg000:C399 sub_FC399 proc near                     ; DATA XREF: seg000:off_FC397↑o
+seg000:C399 sub_FC399 proc far                      ; DATA XREF: seg000:off_FC397↑o
 seg000:C399         mov     sp, bp
 seg000:C39B         jz      short loc_FC3B2
 seg000:C39D         mov     dx, 378h
@@ -811,39 +811,27 @@ seg000:C3B8                                         ; DATA XREF: ...
 seg000:C3B8         mov     cx, 0Ah                 ; jumptable 000FC10D case 1
 seg000:C3BB         mov     sp, offset off_FC3C1
 seg000:C3BE         jmp     Delay_CX_Refresh_cycles
-seg000:C3BE sub_FC399 endp
-seg000:C3BE
 seg000:C3BE ; ---------------------------------------------------------------------------
-seg000:C3C1 off_FC3C1 dw offset sub_FC3C3           ; DATA XREF: sub_FC399+22↑o
+seg000:C3C1 off_FC3C1 dw offset loc_FC3C3           ; DATA XREF: sub_FC399+22↑o
+seg000:C3C3 ; ---------------------------------------------------------------------------
 seg000:C3C3
-seg000:C3C3 ; =============== S U B R O U T I N E =======================================
-seg000:C3C3
-seg000:C3C3
-seg000:C3C3 sub_FC3C3 proc near                     ; DATA XREF: seg000:off_FC3C1↑o
+seg000:C3C3 loc_FC3C3:                              ; DATA XREF: sub_FC399:off_FC3C1↑o
 seg000:C3C3         mov     sp, bp
 seg000:C3C5         mov     sp, offset off_FC3CB
 seg000:C3C8         jmp     Chipset_ram_setup
-seg000:C3C8 sub_FC3C3 endp
-seg000:C3C8
 seg000:C3C8 ; ---------------------------------------------------------------------------
-seg000:C3CB off_FC3CB dw offset sub_FC3CD           ; DATA XREF: sub_FC3C3+2↑o
+seg000:C3CB off_FC3CB dw offset loc_FC3CD           ; DATA XREF: sub_FC399+2C↑o
+seg000:C3CD ; ---------------------------------------------------------------------------
 seg000:C3CD
-seg000:C3CD ; =============== S U B R O U T I N E =======================================
-seg000:C3CD
-seg000:C3CD
-seg000:C3CD sub_FC3CD proc near                     ; DATA XREF: seg000:off_FC3CB↑o
+seg000:C3CD loc_FC3CD:                              ; DATA XREF: sub_FC399:off_FC3CB↑o
 seg000:C3CD         mov     sp, bp
 seg000:C3CF         mov     sp, offset off_FC3D5
 seg000:C3D2         jmp     Chipset_?_setup
-seg000:C3D2 sub_FC3CD endp
-seg000:C3D2
 seg000:C3D2 ; ---------------------------------------------------------------------------
-seg000:C3D5 off_FC3D5 dw offset Ram_64kb_poor_test  ; DATA XREF: sub_FC3CD+2↑o
+seg000:C3D5 off_FC3D5 dw offset Ram_64kb_poor_test  ; DATA XREF: sub_FC399+36↑o
+seg000:C3D7 ; ---------------------------------------------------------------------------
 seg000:C3D7
-seg000:C3D7 ; =============== S U B R O U T I N E =======================================
-seg000:C3D7
-seg000:C3D7
-seg000:C3D7 Ram_64kb_poor_test proc far             ; DATA XREF: seg000:off_FC3D5↑o
+seg000:C3D7 Ram_64kb_poor_test:                     ; DATA XREF: sub_FC399:off_FC3D5↑o
 seg000:C3D7         mov     sp, bp
 seg000:C3D9         mov     dx, 378h
 seg000:C3DC         mov     al, 0F9h
@@ -853,23 +841,23 @@ seg000:C3E2         mov     es, ax
 seg000:C3E4         mov     di, 8000h
 seg000:C3E7         mov     cx, 11h
 seg000:C3EA
-seg000:C3EA ram_fill_loop:                          ; CODE XREF: Ram_64kb_poor_test+18↓j
+seg000:C3EA loc_FC3EA:                              ; CODE XREF: sub_FC399+56↓j
 seg000:C3EA         mov     es:[di], cl
 seg000:C3ED         shr     di, 1
-seg000:C3EF         loop    ram_fill_loop
+seg000:C3EF         loop    loc_FC3EA
 seg000:C3F1         mov     di, 8000h
 seg000:C3F4         mov     cx, 11h
 seg000:C3F7
-seg000:C3F7 ram_test_loop:                          ; CODE XREF: Ram_64kb_poor_test+2C↓j
+seg000:C3F7 loc_FC3F7:                              ; CODE XREF: sub_FC399+6A↓j
 seg000:C3F7         cmp     es:[di], cl
-seg000:C3FA         jz      short first_test_ok
+seg000:C3FA         jz      short loc_FC401
 seg000:C3FC         mov     ax, 3
-seg000:C3FF         jmp     short error
+seg000:C3FF         jmp     short loc_FC44D
 seg000:C401 ; ---------------------------------------------------------------------------
 seg000:C401
-seg000:C401 first_test_ok:                          ; CODE XREF: Ram_64kb_poor_test+23↑j
+seg000:C401 loc_FC401:                              ; CODE XREF: sub_FC399+61↑j
 seg000:C401         shr     di, 1
-seg000:C403         loop    ram_test_loop
+seg000:C403         loop    loc_FC3F7
 seg000:C405         mov     al, 0F0h
 seg000:C407         out     61h, al
 seg000:C409         mov     ax, 0FFFFh
@@ -881,11 +869,11 @@ seg000:C417         mov     di, 0
 seg000:C41A         mov     cx, 8000h
 seg000:C41D         repe scasw
 seg000:C41F         mov     ax, 4
-seg000:C422         jnz     short error
+seg000:C422         jnz     short loc_FC44D
 seg000:C424         in      al, 61h
 seg000:C426         test    al, 0C0h
 seg000:C428         mov     ax, 5
-seg000:C42B         jnz     short error
+seg000:C42B         jnz     short loc_FC44D
 seg000:C42D         xor     ax, ax
 seg000:C42F         mov     di, ax
 seg000:C431         mov     cx, 8000h
@@ -895,13 +883,13 @@ seg000:C438         mov     di, ax
 seg000:C43A         mov     cx, 8000h
 seg000:C43D         repe scasw
 seg000:C43F         mov     ax, 6
-seg000:C442         jnz     short error
+seg000:C442         jnz     short loc_FC44D
 seg000:C444         in      al, 61h
 seg000:C446         test    al, 0C0h
-seg000:C448         jz      short ok
+seg000:C448         jz      short loc_FC456
 seg000:C44A         mov     ax, 7
 seg000:C44D
-seg000:C44D error:                                  ; CODE XREF: Ram_64kb_poor_test+28↑j Ram_64kb_poor_test+4B↑j ...
+seg000:C44D loc_FC44D:                              ; CODE XREF: sub_FC399+66↑j sub_FC399+89↑j ...
 seg000:C44D         jmp     ram_test_error
 seg000:C450 ; ---------------------------------------------------------------------------
 seg000:C450
@@ -912,19 +900,19 @@ seg000:C452         out     61h, al
 seg000:C454         jmp     short loc_FC45C
 seg000:C456 ; ---------------------------------------------------------------------------
 seg000:C456
-seg000:C456 ok:                                     ; CODE XREF: Ram_64kb_poor_test+71↑j
+seg000:C456 loc_FC456:                              ; CODE XREF: sub_FC399+AF↑j
 seg000:C456         mov     al, 0FCh
 seg000:C458         out     61h, al
-seg000:C45A         jmp     short copying_to_C000_ram
+seg000:C45A         jmp     short loc_FC465
 seg000:C45C ; ---------------------------------------------------------------------------
 seg000:C45C
-seg000:C45C loc_FC45C:                              ; CODE XREF: Ram_64kb_poor_test+7D↑j
+seg000:C45C loc_FC45C:                              ; CODE XREF: sub_FC399+BB↑j
 seg000:C45C         xor     ax, ax
 seg000:C45E         mov     di, ax
 seg000:C460         mov     cx, 8000h
 seg000:C463         rep stosw
 seg000:C465
-seg000:C465 copying_to_C000_ram:                    ; CODE XREF: Ram_64kb_poor_test+83↑j
+seg000:C465 loc_FC465:                              ; CODE XREF: sub_FC399+C1↑j
 seg000:C465         lss     sp, cs:stack_C000_ptr
 seg000:C46B         assume ss:nothing
 seg000:C46B         mov     ax, cs
@@ -940,13 +928,13 @@ seg000:C47E         rep movsd
 seg000:C481         push    es
 seg000:C482         push    offset execute_from_Ram
 seg000:C485         retf
-seg000:C485 Ram_64kb_poor_test endp ; sp-analysis failed
+seg000:C485 sub_FC399 endp
 seg000:C485
 seg000:C486
 seg000:C486 ; =============== S U B R O U T I N E =======================================
 seg000:C486
 seg000:C486
-seg000:C486 execute_from_Ram proc near              ; DATA XREF: Ram_64kb_poor_test+AB↑o
+seg000:C486 execute_from_Ram proc near              ; DATA XREF: sub_FC399+E9↑o
 seg000:C486         call    IVT_setup
 seg000:C489         call    BDA_init_from_FF000
 seg000:C48C         assume ds:nothing
@@ -983,7 +971,7 @@ seg000:C4C5         mov     ah, 0
 seg000:C4C7         call    cmos_read_atomic_upper_bank
 seg000:C4CA         test    al, 80h
 seg000:C4CC         jnz     short loc_FC4EC
-seg000:C4CE         call    Flash_check_marker
+seg000:C4CE         call    Flash_verify_crc_check_marker
 seg000:C4D1         or      ax, ax
 seg000:C4D3         jz      short loc_FC4EC
 seg000:C4D5         call    ICL_superIO_120_5_test_2
@@ -1777,8 +1765,7 @@ seg000:C956
 seg000:C956 ; =============== S U B R O U T I N E =======================================
 seg000:C956
 seg000:C956
-seg000:C956 nullsub_1 proc near                     ; CODE XREF: int_13h_diskIO+3F↑p
-seg000:C956                                         ; DATA XREF: seg000:int_13h_jump_table↑o
+seg000:C956 nullsub_1 proc near                     ; DATA XREF: seg000:int_13h_jump_table↑o
 seg000:C956         retn
 seg000:C956 nullsub_1 endp
 seg000:C956
@@ -2504,9 +2491,9 @@ seg000:CD49 ; =============== S U B R O U T I N E ==============================
 seg000:CD49
 seg000:CD49 ; Attributes: bp-based frame
 seg000:CD49
-seg000:CD49 Flash_check_marker proc near            ; CODE XREF: execute_from_Ram+48↑p
+seg000:CD49 Flash_verify_crc_check_marker proc near ; CODE XREF: execute_from_Ram+48↑p
 seg000:CD49
-seg000:CD49 var_2   = word ptr -2
+seg000:CD49 system_rom_zzoves_segment= word ptr -2
 seg000:CD49
 seg000:CD49         push    bx
 seg000:CD4A         push    cx
@@ -2524,35 +2511,35 @@ seg000:CD5C         mov     es, ax
 seg000:CD5E         assume es:nothing
 seg000:CD5E         mov     bx, es:[si]
 seg000:CD61         mov     ax, es:[si+2]
-seg000:CD65         mov     [bp+var_2], ax
+seg000:CD65         mov     [bp+system_rom_zzoves_segment], ax
 seg000:CD68         xor     si, si
 seg000:CD6A         mov     di, 0FFFFh
 seg000:CD6D         call    CRC_16_CCITT_FALSE
 seg000:CD70         mov     cx, dx
-seg000:CD72         lea     si, [bx+40h]
-seg000:CD75         mov     es, [bp+var_2]
+seg000:CD72         lea     si, [bx+(size ZZOVES_header)]
+seg000:CD75         mov     es, [bp+system_rom_zzoves_segment]
 seg000:CD78         assume es:nothing
 seg000:CD78         mov     di, 0FFFFh
 seg000:CD7B         call    CRC_16_CCITT_FALSE
-seg000:CD7E         mov     es, [bp+var_2]
-seg000:CD81         cmp     word ptr es:[bx+4], 'SE'
-seg000:CD87         jnz     short loc_FCDA9
-seg000:CD89         cmp     word ptr es:[bx+2], 'VO'
-seg000:CD8F         jnz     short loc_FCDA9
-seg000:CD91         cmp     word ptr es:[bx], 'ZZ'
-seg000:CD96         jnz     short loc_FCDA9
-seg000:CD98         cmp     dx, es:[bx+3Ch]
-seg000:CD9C         jnz     short loc_FCDA9
-seg000:CD9E         cmp     cx, es:[bx+3Eh]
-seg000:CDA2         jnz     short loc_FCDA9
+seg000:CD7E         mov     es, [bp+system_rom_zzoves_segment]
+seg000:CD81         cmp     word ptr es:[bx+ZZOVES_header.ES], 'SE'
+seg000:CD87         jnz     short crc_error
+seg000:CD89         cmp     word ptr es:[bx+ZZOVES_header.OV], 'VO'
+seg000:CD8F         jnz     short crc_error
+seg000:CD91         cmp     word ptr es:[bx+ZZOVES_header.ZZ], 'ZZ'
+seg000:CD96         jnz     short crc_error
+seg000:CD98         cmp     dx, es:[bx+ZZOVES_header.upper_32KB_bios_crc]
+seg000:CD9C         jnz     short crc_error
+seg000:CD9E         cmp     cx, es:[bx+ZZOVES_header.main_bios_crc]
+seg000:CDA2         jnz     short crc_error
 seg000:CDA4         mov     ax, 1
 seg000:CDA7         jmp     short end
 seg000:CDA9 ; ---------------------------------------------------------------------------
 seg000:CDA9
-seg000:CDA9 loc_FCDA9:                              ; CODE XREF: Flash_check_marker+3E↑j Flash_check_marker+46↑j ...
+seg000:CDA9 crc_error:                              ; CODE XREF: Flash_verify_crc_check_marker+3E↑j Flash_verify_crc_check_marker+46↑j ...
 seg000:CDA9         xor     ax, ax
 seg000:CDAB
-seg000:CDAB end:                                    ; CODE XREF: Flash_check_marker+5E↑j
+seg000:CDAB end:                                    ; CODE XREF: Flash_verify_crc_check_marker+5E↑j
 seg000:CDAB         leave
 seg000:CDAC
 seg000:CDAC pop_es_di_si_dx_cx_bx_retn:             ; CODE XREF: Flash_erase+7F↓j
@@ -2567,7 +2554,7 @@ seg000:CDAF         pop     dx
 seg000:CDB0         pop     cx
 seg000:CDB1         pop     bx
 seg000:CDB2         retn
-seg000:CDB2 Flash_check_marker endp
+seg000:CDB2 Flash_verify_crc_check_marker endp
 seg000:CDB2
 seg000:CDB3
 seg000:CDB3 ; =============== S U B R O U T I N E =======================================
@@ -2969,8 +2956,8 @@ seg000:D0E8         add     bh, 30h ; '0'
 seg000:D0EB         or      bx, ax
 seg000:D0ED         mov     word ptr es:[si+ZZOVES_header.mm], bx
 seg000:D0F1         mov     bx, si
-seg000:D0F3         mov     es:[bx+ZZOVES_header.crc_1], dx
-seg000:D0F7         mov     es:[bx+ZZOVES_header.crc_2], cx
+seg000:D0F3         mov     es:[bx+ZZOVES_header.upper_32KB_bios_crc], dx
+seg000:D0F7         mov     es:[bx+ZZOVES_header.main_bios_crc], cx
 seg000:D0FB         mov     ax, ds:bios_size_16B_chunks
 seg000:D0FE         mov     es:[bx+ZZOVES_header.bios_size_16B_chunks], ax
 seg000:D102
@@ -4034,7 +4021,7 @@ seg000:D6D7
 seg000:D6D7 ; =============== S U B R O U T I N E =======================================
 seg000:D6D7
 seg000:D6D7
-seg000:D6D7 Chipset_??_setup_set_flash_readable proc near ; CODE XREF: execute_from_Ram+6↑p Flash_check_marker+A↑p ...
+seg000:D6D7 Chipset_??_setup_set_flash_readable proc near ; CODE XREF: execute_from_Ram+6↑p Flash_verify_crc_check_marker+A↑p ...
 seg000:D6D7         push    es
 seg000:D6D8         push    bx
 seg000:D6D9         push    dx
@@ -4128,7 +4115,7 @@ seg000:D73F
 seg000:D73F ; =============== S U B R O U T I N E =======================================
 seg000:D73F
 seg000:D73F
-seg000:D73F Chipset_?_setup proc near               ; CODE XREF: sub_FC3CD+5↑j
+seg000:D73F Chipset_?_setup proc near               ; CODE XREF: sub_FC399+39↑j
 seg000:D73F         mov     ax, 0
 seg000:D742         mov     bx, 6
 seg000:D745         xchg    ax, bx
@@ -4175,7 +4162,7 @@ seg000:D76A
 seg000:D76A ; =============== S U B R O U T I N E =======================================
 seg000:D76A
 seg000:D76A
-seg000:D76A Chipset_ram_setup proc near             ; CODE XREF: sub_FC3C3+5↑j
+seg000:D76A Chipset_ram_setup proc near             ; CODE XREF: sub_FC399+2F↑j
 seg000:D76A         mov     dx, 378h
 seg000:D76D         mov     al, 3Fh
 seg000:D76F         out     dx, al
@@ -5780,7 +5767,7 @@ seg000:DF7E ;  di offset of last byte to include
 seg000:DF7E ; out:
 seg000:DF7E ;  dx 16-bit checksum
 seg000:DF7E
-seg000:DF7E CRC_16_CCITT_FALSE proc near            ; CODE XREF: Flash_check_marker+24↑p Flash_check_marker+32↑p ...
+seg000:DF7E CRC_16_CCITT_FALSE proc near            ; CODE XREF: Flash_verify_crc_check_marker+24↑p Flash_verify_crc_check_marker+32↑p ...
 seg000:DF7E         push    ax
 seg000:DF7F         push    si
 seg000:DF80         mov     ah, 0

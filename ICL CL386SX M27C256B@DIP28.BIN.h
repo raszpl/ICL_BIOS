@@ -101,8 +101,8 @@ struct ZZOVES_header
   char DD[2];
   char HH[2];
   char mm[2];
-  unsigned __int16 crc_1;
-  unsigned __int16 crc_2;
+  unsigned __int16 upper_32KB_bios_crc;
+  unsigned __int16 main_bios_crc;
 };
 #pragma pack(pop)
 
