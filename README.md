@@ -26,6 +26,10 @@ Sidenote: Anything in filenames between '_' and '.' is ignored, its their magic 
 # BIOS
 Havent gotten around to disassembling it yet.
 
+# BIOS lineage
+ICL didnt design this system. Afaik they had no x86 PCs before 1991. [ICL merged with Nokia Data in 1991](https://www.latimes.com/archives/la-xpm-1991-06-03-fi-254-story.html). Nokia merged with Ericsson Information Systems (EIS) creating Nokia Data in 1988. Earliest bios sharing codebase with CL386S I could find is in 1988 [Ericsson 6573](https://theretroweb.com/motherboards/s/ericsson-6573).  
+History goes deeper with Saab selling Linköping based Datasaab to Ericsson in 1981, but thats pre x86 PC :)
+
 # BIOS EEPROM chip contents
 128KB Intel N28F010. ATI VGA bios 'NVGA2i VGABIOS Version K' starts at the top and takes 32KB, main 64KB BIOS 'ROM BIOS #22  Version 1.20' lines up with end of ROM. There is provision for stuffing more main bios code just below VGA bios.  
 Special Header, whose address is encoded at Far Pointer stored in Flash offset 1F850h (F000:F850) pointing at E000:8000 in Bios Version 1.20, ZZOVES_header:
